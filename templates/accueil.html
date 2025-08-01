@@ -6,23 +6,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <!-- 🌟 Logo (optionnel)
-        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo de l'hôtel" style="max-width: 120px; margin-bottom: 20px;">
-        -->
-
-        <!-- ✅ Titre parfaitement centré -->
-        <h1 style="font-size: 2.8em; color: #00f0c0; font-weight: bold; text-shadow: 2px 2px 5px black; margin-bottom: 40px;">
-            HOTEL PENSION LE PRESTIGE
-        </h1>
-
-        <!-- 👤 Directeur légèrement en dessous du titre -->
-        <p style="font-style: italic; font-size: 1.1em; color: #f0f0f0; margin-top: 10px; margin-bottom: 40px;">
-            Directeur : HOUGBETODE Codjo Guy
-        </p>
-
-        <!-- 🔐 Bouton d’accès -->
-        <a href="/gerant" class="bouton">Accès à la page suivante</a>
+    <div class="accueil">
+        <h1 class="titre-principal">HOTEL PENSION <span class="prestige">LE PRESTIGE</span></h1>
+        <p class="nom-directeur">Directeur : HOUGBETODE Codjo Guy</p>
+        <a href="{{ url_for('login') }}" class="btn">Entrer</a>
     </div>
 </body>
 </html>

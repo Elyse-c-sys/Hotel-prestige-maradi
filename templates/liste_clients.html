@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des clients</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="clients">
+        <h1>Liste des clients enregistrés</h1>
+        {% if clients %}
+            <ul>
+                {% for client in clients %}
+                    <li>{{ client['nom'] }} {{ client['prenom'] }} - 
+                        <a href="{{ url_for('generer_pdf', index=loop.index0) }}">Télécharger PDF</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aucun client enregistré.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

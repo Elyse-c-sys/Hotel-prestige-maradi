@@ -2,185 +2,84 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <h1><h1>HOTEL LE PRESTIGE MARADI</h1>
-<p style="color:red;">🔴 Ceci est un test visible</p>
-</h1>
-    <title>FICHE DE RENSEIGNEMENT CLIENT</title>
+    <title>Fiche Client</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        form label {
-            font-weight: bold;
-        }
-
-        form input, form select {
-            width: 100%;
-            padding: 8px;
-            border-radius: 5px;
-            border: none;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: white;
-            color: black;
-        }
-
-        th, td {
-            padding: 8px;
-            border: 1px solid #ccc;
-            text-align: center;
-        }
-
-        th {
-            background-color: #00b894;
-            color: white;
-        }
-    </style>
 </head>
-<body>
-    <div class="container">
-        <h1>HOTEL LE PRESTIGE MARADI</h1>
-        <h2>Tel: 96-97-05-71/94250556</h2>
+<body class="page-fiche">
+    <div class="form-container">
+        <h1>HÔTEL LE PRESTIGE MARADI</h1>
+        <h3>Tel: 96970571 / 94250556</h3>
         <h2>FICHE DE RENSEIGNEMENT CLIENT</h2>
+        <form method="post">
+            <label>Nom</label>
+            <input type="text" name="nom" required>
 
-        {% if message %}
-        <div class="popup">{{ message }}</div>
-        {% endif %}
+            <label>Prénom</label>
+            <input type="text" name="prenom" required>
 
-        <form method="POST" action="/fiche">
-            <label>Nom :</label>
-            <input type="text" name="nom_client" required>
-
-            <label>Prénom :</label>
-            <input type="text" name="prenom_client" required>
-
-            <label>Date de naissance :</label>
+            <label>Date de naissance</label>
             <input type="date" name="date_naissance" required>
 
-            <label>Lieu de naissance :</label>
-            <input type="text" name="lieu_naissance">
+            <label>Lieu de naissance</label>
+            <input type="text" name="lieu_naissance" required>
 
-            <label>Nationalité :</label>
-            <input type="text" name="nationalite">
+            <label>Nationalité</label>
+            <input type="text" name="nationalite" required>
 
-            <label>Profession :</label>
-            <input type="text" name="profession">
+            <label>Profession</label>
+            <input type="text" name="profession" required>
 
-            <label>Organisme :</label>
-            <input type="text" name="organisme">
+            <label>Organisme</label>
+            <input type="text" name="organisme" required>
 
-            <label>Domicile légal :</label>
-            <input type="text" name="domicile_legal">
+            <label>Domicile légal</label>
+            <input type="text" name="domicile" required>
 
-            <label>Venant de :</label>
-            <input type="text" name="venant_de">
+            <label>Provenance</label>
+            <input type="text" name="provenance" required>
 
-            <label>Allant à :</label>
-            <input type="text" name="allant_a">
+            <label>Destination</label>
+            <input type="text" name="destination" required>
 
-            <label>Moyen de transport :</label>
-            <input type="text" name="transport">
+            <label>Moyen de transport</label>
+            <input type="text" name="transport" required>
 
-            <label>Téléphone :</label>
-            <input type="tel" name="telephone">
+            <label>Téléphone</label>
+            <input type="text" name="telephone" required>
 
-            <label>Type de pièce d'identité :</label>
-            <select name="type_piece" id="type_piece" onchange="afficherChampAutre()">
-                <option value="Carte">Carte d'identitée</option>
-                <option value="Passeport">Passeport</option>
-                <option value="Permis">Permis</option>
-                <option value="Autre">Autre</option>
-            </select>
+            <label>Type de pièce</label>
+            <input type="text" name="piece_type" required>
 
-            <div id="champ_autre_piece" style="display:none;">
-                <label>Précisez le type :</label>
-                <input type="text" name="nom_autre_piece">
-            </div>
+            <label>Numéro de pièce</label>
+            <input type="text" name="piece_numero" required>
 
-            <label>Numéro de la pièce :</label>
-            <input type="text" name="numero_piece">
+            <label>Date de délivrance</label>
+            <input type="date" name="delivre_date" required>
 
-            <label>Date de délivrance :</label>
-            <input type="date" name="date_delivrance">
+            <label>Lieu de délivrance</label>
+            <input type="text" name="delivre_lieu" required>
 
-            <label>Lieu de délivrance :</label>
-            <input type="text" name="lieu_delivrance">
+            <label>Date d’arrivée</label>
+            <input type="date" name="arrivee" required>
 
-            <label>Date d’arrivée :</label>
-            <input type="date" name="date_arrivee">
+            <label>Date de départ</label>
+            <input type="date" name="depart" required>
 
-            <label>Date de départ :</label>
-            <input type="date" name="date_depart">
+            <label>Motif du voyage</label>
+            <input type="text" name="motif" required>
 
-            <label>Motif du voyage :</label>
-            <input type="text" name="motif">
-
-            <label>Date de renseignement :</label>
-            <input type="date" name="date_renseignement" required>
+            <label>Date de renseignement</label>
+            <input type="date" name="renseignement" required>
 
             <button type="submit">Enregistrer</button>
         </form>
 
-        {% if clients %}
-        <h2>Liste des clients enregistrés</h2>
-        <div style="overflow-x:auto;">
-            <table>
-                <thead>
-                    <tr>
-                        {% for key in clients[0].keys() %}
-                            <th>{{ key }}</th>
-                        {% endfor %}
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for client in clients %}
-                        <tr>
-                            {% for value in client.values() %}
-                                <td>{{ value }}</td>
-                            {% endfor %}
-                            <td>
-                                <button onclick="demanderSuppression({{ loop.index0 }})">🗑️ Supprimer</button>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        {% if pdf_url %}
+        <div class="pdf-link">
+            <p>Fiche enregistrée avec succès. Cliquez ici pour télécharger :</p>
+            <a href="{{ pdf_url }}" target="_blank">Télécharger la fiche PDF</a>
         </div>
         {% endif %}
     </div>
-
-    <script>
-    function afficherChampAutre() {
-        var typePiece = document.getElementById("type_piece").value;
-        var champAutre = document.getElementById("champ_autre_piece");
-        champAutre.style.display = (typePiece === "Autre") ? "block" : "none";
-    }
-
-    function demanderSuppression(index) {
-        const motDePasse = prompt("Entrez le mot de passe pour supprimer :");
-        if (motDePasse === "Pension@2025") {
-            fetch("/supprimer/" + index, {
-                method: "POST"
-            }).then(function(response) {
-                if (response.ok) {
-                    location.reload();
-                } else {
-                    alert("Erreur lors de la suppression.");
-                }
-            });
-        } else {
-            alert("❌ Mot de passe incorrect. Suppression annulée.");
-        }
-    }
-    </script>
 </body>
 </html>

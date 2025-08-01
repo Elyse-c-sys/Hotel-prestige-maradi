@@ -1,128 +1,76 @@
-from flask import Flask, render_template, request, redirect, url_for, session, send_file
-import os
+from flask import Flask, render_template, request, redirect, url_for
 import csv
+import os
+from datetime import datetime
+from fpdf import FPDF
 
 app = Flask(__name__)
-app.secret_key = "cle_super_secrete"
-GERANT_MDP = "Pension@2025"
 
-DOSSIER_DONNEES = os.path.join(os.path.dirname(__file__), "data")
-os.makedirs(DOSSIER_DONNEES, exist_ok=True)
-FICHIER_CSV = os.path.join(DOSSIER_DONNEES, "clients.csv")
+DOSSIER_PDF = 'fiches_pdf'
+if not os.path.exists(DOSSIER_PDF):
+    os.makedirs(DOSSIER_PDF)
 
-
-@app.route("/")
+@app.route('/')
 def accueil():
-    return render_template("accueil.html")
+    return render_template('accueil.html')
 
-
-@app.route("/gerant", methods=["GET", "POST"])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == "POST":
-        nom = request.form.get("nom")
-        prenom = request.form.get("prenom")
-        numero = request.form.get("numero")
-        mot_de_passe = request.form.get("mot_de_passe")
+    if request.method == 'POST':
+        return redirect(url_for('fiche'))
+    return render_template('login.html')
 
-        if mot_de_passe == GERANT_MDP:
-            session["gerant"] = {"nom": nom, "prenom": prenom, "numero": numero}
-            return redirect(url_for("fiche"))
-        else:
-            return render_template("gerant.html", erreur="Mot de passe incorrect.")
-    return render_template("gerant.html")
-
-
-@app.route("/fiche", methods=["GET", "POST"])
+@app.route('/fiche', methods=['GET', 'POST'])
 def fiche():
-    if "gerant" not in session:
-        return redirect(url_for("login"))
-
-    message = ""
-    if request.method == "POST":
-        type_piece = request.form.get("type_piece", "")
-        numero_piece = request.form.get("numero_piece", "")
-        nom_autre_piece = request.form.get("nom_autre_piece", "")
-
-        if type_piece == "Autre" and nom_autre_piece:
-            numero_piece += f" ({nom_autre_piece})"
-
-        donnees = {
-            "Nom": " ".join(request.form.get("nom_client", "").split()),
-            "Prenom": " ".join(request.form.get("prenom_client", "").split()),
-            "Date_naissance": request.form.get("date_naissance"),
-            "Lieu_naissance": request.form.get("lieu_naissance"),
-            "Nationalite": request.form.get("nationalite"),
-            "Profession": request.form.get("profession"),
-            "Organisme": request.form.get("organisme"),
-            "Domicile_legal": request.form.get("domicile_legal"),
-            "Venant_de": request.form.get("venant_de"),
-            "Allant_a": request.form.get("allant_a"),
-            "Transport": request.form.get("transport"),
-            "Telephone": request.form.get("telephone"),
-            "Type_piece": type_piece,
-            "Numero_piece": numero_piece,
-            "Date_delivrance": request.form.get("date_delivrance"),
-            "Lieu_delivrance": request.form.get("lieu_delivrance"),
-            "Date_arrivee": request.form.get("date_arrivee"),
-            "Date_depart": request.form.get("date_depart"),
-            "Motif": request.form.get("motif"),
-            "Date_renseignement": request.form.get("date_renseignement")
+    if request.method == 'POST':
+        data = {
+            'nom': request.form['nom'],
+            'prenom': request.form['prenom'],
+            'date_naissance': request.form['date_naissance'],
+            'lieu_naissance': request.form['lieu_naissance'],
+            'nationalite': request.form['nationalite'],
+            'profession': request.form['profession'],
+            'organisme': request.form['organisme'],
+            'domicile': request.form['domicile'],
+            'provenance': request.form['provenance'],
+            'destination': request.form['destination'],
+            'transport': request.form['transport'],
+            'telephone': request.form['telephone'],
+            'piece_type': request.form['piece_type'],
+            'piece_numero': request.form['piece_numero'],
+            'delivre_date': request.form['delivre_date'],
+            'delivre_lieu': request.form['delivre_lieu'],
+            'arrivee': request.form['arrivee'],
+            'depart': request.form['depart'],
+            'motif': request.form['motif'],
+            'renseignement': request.form['renseignement'],
         }
 
-        ecrire_entete = not os.path.exists(FICHIER_CSV)
-        with open(FICHIER_CSV, "a", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=donnees.keys())
-            if ecrire_entete:
-                writer.writeheader()
-            writer.writerow(donnees)
+        with open('clients.csv', mode='a', newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            writer.writerow(data.values())
 
-        message = "✅ Client enregistré avec succès"
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font("Arial", size=12)
+        pdf.cell(200, 10, txt="HÔTEL LE PRESTIGE MARADI", ln=True, align='C')
+        pdf.cell(200, 10, txt="Tel: 96970571 / 94250556", ln=True, align='C')
+        pdf.ln(10)
+        pdf.set_font("Arial", 'B', 14)
+        pdf.cell(200, 10, txt="FICHE DE RENSEIGNEMENT CLIENT", ln=True, align='C')
+        pdf.ln(10)
+        pdf.set_font("Arial", size=12)
 
-    clients = []
-    if os.path.exists(FICHIER_CSV):
-        with open(FICHIER_CSV, newline="", encoding="utf-8") as f:
-            reader = csv.DictReader(f)
-            clients = list(reader)
+        for key, value in data.items():
+            pdf.cell(0, 10, txt=f"{key.replace('_', ' ').capitalize()} : {value}", ln=True)
 
-    return render_template("fiche.html", clients=clients, message=message)
+        filename = f"{data['nom']}_{data['prenom']}_{datetime.now().strftime('%Y%m%d%H%M%S')}.pdf"
+        pdf_path = os.path.join(DOSSIER_PDF, filename)
+        pdf.output(pdf_path)
 
+        return render_template('fiche.html', pdf_url=None)
 
-@app.route("/export")
-def export():
-    if os.path.exists(FICHIER_CSV):
-        return send_file(FICHIER_CSV, as_attachment=True)
-    return "Aucune donnée à exporter."
+    return render_template('fiche.html', pdf_url=None)
 
-
-@app.route("/logout")
-def logout():
-    session.pop("gerant", None)
-    return redirect(url_for("login"))
-
-@app.route("/supprimer/<int:index>", methods=["POST"])
-def supprimer(index):
-    if "gerant" not in session:
-        return "Non autorisé", 403
-
-    if os.path.exists(FICHIER_CSV):
-        with open(FICHIER_CSV, newline="", encoding="utf-8") as f:
-            lignes = list(csv.DictReader(f))
-
-        if 0 <= index < len(lignes):
-            del lignes[index]
-            # Réécriture complète du fichier CSV sans l'entrée supprimée
-            with open(FICHIER_CSV, "w", newline="", encoding="utf-8") as f:
-                if lignes:
-                    writer = csv.DictWriter(f, fieldnames=lignes[0].keys())
-                    writer.writeheader()
-                    writer.writerows(lignes)
-                else:
-                    f.truncate()  # Vide le fichier s'il ne reste plus rien
-
-        return "", 204
-    return "Fichier introuvable", 404
-
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)

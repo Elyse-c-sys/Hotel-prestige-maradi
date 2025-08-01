@@ -1,131 +1,93 @@
-/* 🌌 Arrière-plan élégant et police douce */
 body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #a2ffec, #9efff8);
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to right, #1e3c72, #2a5298); /* Dégradé bleu */
-    color: #f8f8f8;
-}
-
-/* 🧊 Boîte centrale floutée et arrondie */
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 40px;
-    background-color: rgba(255, 255, 255, 0.07); /* Blanc transparent */
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.4);
-    backdrop-filter: blur(5px);
+    color: #000;
     text-align: center;
-    animation: fadeIn 1.2s ease-in-out;
 }
 
-/* ✨ Titre lumineux */
-h1 {
+h1, h2 {
+    color: #000;
+}
+
+.titre-principal {
     font-size: 2.5em;
-    margin-bottom: 15px;
-    color: #ffffff;
+    margin-top: 0.5em;
+}
+
+.prestige {
+    color: #008080;
+    font-style: italic;
+}
+
+.nom-directeur {
     font-weight: bold;
-    text-shadow: 0 0 10px #00f2ff, 0 0 20px #0088cc;
+    color: #005f73;
 }
 
-/* 🌿 Sous-titre */
-h2 {
-    color: #a0e7e5;
-    margin-bottom: 10px;
+.accueil, .login, .gerant, .fiche, .clients {
+    max-width: 600px;
+    margin: auto;
+    padding: 2em;
+    background: #ffffffcc;
+    box-shadow: 0 0 25px rgba(0,0,0,0.15);
+    border-radius: 16px;
+    margin-top: 3em;
+    color: #000;
 }
 
-/* 🔘 Bouton élégant */
-a.bouton, button {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 15px 30px;
-    background-color: #00b894;
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
-
-a.bouton:hover, button:hover {
-    background-color: #019874;
-    transform: scale(1.05);
-}
-
-/* 👣 Pied de page discret */
-.footer {
-    margin-top: 40px;
-    font-size: 0.9em;
-    color: #ddd;
-    text-align: center;
-    opacity: 0.7;
-}
-
-/* 🪄 Animation d’entrée */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ✅ Notification douce */
-.popup {
-    background-color: #2ecc71;
-    color: white;
-    padding: 12px;
-    margin: 15px auto;
-    border-radius: 8px;
-    max-width: 500px;
-    font-weight: bold;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
-/* 📱 Responsive pour mobile */
-@media (max-width: 600px) {
-    .container {
-        padding: 20px;
-        margin: 20px;
-    }
-
-    h1 {
-        font-size: 1.8em;
-    }
-
-    a.bouton, button {
-        width: 100%;
-        font-size: 16px;
-    }
-}
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-label {
-    font-weight: bold;
-    color: #ffffff;
-    margin-bottom: 5px;
-    text-align: left;
-}
-
-input[type="text"],
-input[type="password"] {
-    padding: 12px;
-    border-radius: 6px;
-    border: none;
-    font-size: 1em;
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #333;
+form input, form select, form button {
+    display: block;
     width: 100%;
+    margin: 0.5em 0;
+    padding: 0.8em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+form button, .btn {
+    background-color: #00b4d8;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 1em;
+    padding: 0.8em 1.2em;
+}
+
+form button:hover, .btn:hover {
+    background-color: #0096c7;
+}
+
+.flash.success {
+    background-color: #d1fae5;
+    color: #065f46;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #10b981;
+}
+
+.flash.error {
+    background-color: #ffe5ec;
+    color: #9d0208;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #f08080;
+}
+
+.logo {
+    display: block;
+    margin: auto;
+    width: 150px;
+}
+
+#search {
+    width: 100%;
+    padding: 0.6em;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 1em;
 }
