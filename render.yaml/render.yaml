@@ -3,6 +3,6 @@ services:
     name: hotel-prestige-maradi
     env: python
     buildCommand: ""
-    startCommand: gunicorn app:app
+    startCommand: "python app.py"
     plan: free
     autoDeploy: true
