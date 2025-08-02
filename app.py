@@ -72,5 +72,6 @@ def fiche():
 
     return render_template('fiche.html', pdf_url=None)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run()
+
