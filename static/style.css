@@ -1,93 +1,230 @@
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #a2ffec, #9efff8);
+/* === Style page accueil === */
+body.accueil-body {
     margin: 0;
     padding: 0;
-    color: #000;
-    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #e0f2f1, #a7ffeb);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-h1, h2 {
-    color: #000;
+.accueil-container {
+    text-align: center;
+    background-color: white;
+    padding: 60px;
+    border-radius: 16px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.1);
+    max-width: 700px;
+    width: 90%;
 }
 
 .titre-principal {
-    font-size: 2.5em;
-    margin-top: 0.5em;
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: #064e3b;
+    margin-bottom: 10px;
 }
 
-.prestige {
-    color: #008080;
-    font-style: italic;
-}
-
-.nom-directeur {
-    font-weight: bold;
-    color: #005f73;
-}
-
-.accueil, .login, .gerant, .fiche, .clients {
-    max-width: 600px;
-    margin: auto;
-    padding: 2em;
-    background: #ffffffcc;
-    box-shadow: 0 0 25px rgba(0,0,0,0.15);
-    border-radius: 16px;
-    margin-top: 3em;
-    color: #000;
-}
-
-form input, form select, form button {
-    display: block;
-    width: 100%;
-    margin: 0.5em 0;
-    padding: 0.8em;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
-
-form button, .btn {
-    background-color: #00b4d8;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 1em;
-    padding: 0.8em 1.2em;
-}
-
-form button:hover, .btn:hover {
-    background-color: #0096c7;
-}
-
-.flash.success {
-    background-color: #d1fae5;
+.sous-titre {
+    font-size: 20px;
     color: #065f46;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #10b981;
+    font-style: italic;
+    margin-bottom: 40px;
 }
 
-.flash.error {
-    background-color: #ffe5ec;
-    color: #9d0208;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #f08080;
+.btn-entrer {
+    display: inline-block;
+    background-color: #065f46;
+    color: white;
+    text-decoration: none;
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
-.logo {
+.btn-entrer:hover {
+    background-color: #0f766e;
+}
+
+.logo-img {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+/* Style exclusif à la page de connexion */
+.login-body {
+    background: linear-gradient(to bottom right, #0f3d3e, #1e656d);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.login-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+}
+
+.login-title {
+    font-size: 2.5em;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.login-form label {
     display: block;
-    margin: auto;
-    width: 150px;
+    margin-top: 15px;
+    font-size: 1.3em;
+    color: #fff;
 }
 
-#search {
+.login-form input {
     width: 100%;
-    padding: 0.6em;
+    padding: 12px;
+    font-size: 1.1em;
+    border-radius: 10px;
+    border: none;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.login-form button {
+    margin-top: 20px;
+    background-color: #1abc9c;
+    color: white;
+    font-size: 1.3em;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-form button:hover {
+    background-color: #16a085;
+}
+
+/* === Style pour la page Fiche de Renseignement Client === */
+.fiche-body {
+    background: linear-gradient(to bottom right, #0f3d3e, #1e656d);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.fiche-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+    color: #fff;
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+.fiche-title {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.fiche-form label {
+    display: block;
+    text-align: left;
+    font-size: 1em;
+    margin-top: 12px;
+    color: #ffffff;
+}
+
+.fiche-form input,
+.fiche-form select,
+.fiche-form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.95em;
     border-radius: 8px;
-    border: 1px solid #ccc;
-    margin-bottom: 1em;
+    border: none;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.fiche-form button {
+    margin-top: 20px;
+    background-color: #1abc9c;
+    color: white;
+    font-size: 1.1em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.fiche-form button:hover {
+    background-color: #16a085;
+}
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px;
+  background: linear-gradient(to bottom, #004d40, #00695c); /* Vert foncé élégant */
+  min-height: 100vh;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+.dashboard-container h1 {
+  font-size: 32px;
+  margin-bottom: 40px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-bottom: 2px solid #ffffff44;
+  padding-bottom: 10px;
+}
+
+.dashboard-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.dashboard-buttons a {
+  display: block;
+  text-decoration: none;
+  background-color: #26a69a;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.dashboard-buttons a:hover {
+  background-color: #2bbbad;
+  transform: translateY(-2px);
 }

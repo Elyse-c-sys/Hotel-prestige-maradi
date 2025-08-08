@@ -2,23 +2,29 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Liste des clients</title>
+    <title>Liste des clients enregistrés</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="clients">
-        <h1>Liste des clients enregistrés</h1>
-        {% if clients %}
-            <ul>
-                {% for client in clients %}
-                    <li>{{ client['nom'] }} {{ client['prenom'] }} - 
-                        <a href="{{ url_for('generer_pdf', index=loop.index0) }}">Télécharger PDF</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>Aucun client enregistré.</p>
-        {% endif %}
+        <h1>🧾 Liste des clients enregistrés</h1>
+        <input type="text" id="search" placeholder="🔍 Rechercher un client..." onkeyup="filtrerClients()">
+        <ul id="liste-clients">
+            {% for client in clients %}
+                <li>
+                    <strong>{{ client.nom }} {{ client.prenom }}</strong> — Né(e) le {{ client.date_naissance }} à {{ client.lieu_naissance }}
+                </li>
+            {% endfor %}
+        </ul>
     </div>
+    <script>
+        function filtrerClients() {
+            const input = document.getElementById("search").value.toLowerCase();
+            const items = document.querySelectorAll("#liste-clients li");
+            items.forEach(item => {
+                item.style.display = item.textContent.toLowerCase().includes(input) ? "block" : "none";
+            });
+        }
+    </script>
 </body>
 </html>

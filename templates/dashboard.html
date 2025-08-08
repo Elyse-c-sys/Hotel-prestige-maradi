@@ -2,14 +2,19 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Bienvenue Gérant</title>
+    <title>Tableau de Bord</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="gerant">
-        <h1>Bienvenue {{ gerant }}</h1>
-        <a href="{{ url_for('fiche') }}" class="btn">➕ Enregistrement d’un client</a>
-        <a href="{{ url_for('clients') }}" class="btn">📄 Voir les fiches PDF</a>
+    <div class="dashboard-container">
+        <h1>Bienvenue Elysé MEDJOGBE</h1>
+
+        <div class="dashboard-buttons">
+            <a href="{{ url_for('fiche') }}">➕ Enregistrer un client</a>
+            <a href="{{ url_for('stats') }}">📊 Voir les statistiques</a>
+            <a href="{{ url_for('pdfs') }}">📁 Voir les fiches PDF</a>
+        </div>
     </div>
 </body>
 </html>

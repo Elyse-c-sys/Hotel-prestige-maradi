@@ -2,84 +2,166 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Fiche Client</title>
+    <title>FICHE DE RENSEIGNEMENT CLIENT</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background-color: #2e7d32;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .fiche-container {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+
+        .header-prestige {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .header-prestige h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .header-prestige p {
+            margin: 0;
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        input, select {
+            padding: 8px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            background-color: #fff;
+            color: #000;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #43a047;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #388e3c;
+        }
+    </style>
 </head>
-<body class="page-fiche">
-    <div class="form-container">
-        <h1>HÔTEL LE PRESTIGE MARADI</h1>
-        <h3>Tel: 96970571 / 94250556</h3>
-        <h2>FICHE DE RENSEIGNEMENT CLIENT</h2>
-        <form method="post">
-            <label>Nom</label>
+<body>
+    <div class="fiche-container">
+
+        <div class="header-prestige">
+            <h2>HOTEL LE PRESTIGE MARADI</h2>
+            <p>Tel : 96970571 / 94250556</p>
+        </div>
+
+        <h1>FICHE DE RENSEIGNEMENT CLIENT</h1>
+
+        <form method="POST" action="{{ url_for('fiche') }}">
+            <label>Nom :</label>
             <input type="text" name="nom" required>
 
-            <label>Prénom</label>
+            <label>Prénom :</label>
             <input type="text" name="prenom" required>
 
-            <label>Date de naissance</label>
+            <label>Date de naissance :</label>
             <input type="date" name="date_naissance" required>
 
-            <label>Lieu de naissance</label>
+            <label>Lieu de naissance :</label>
             <input type="text" name="lieu_naissance" required>
 
-            <label>Nationalité</label>
+            <label>Nationalité :</label>
             <input type="text" name="nationalite" required>
 
-            <label>Profession</label>
-            <input type="text" name="profession" required>
+            <label>Profession :</label>
+            <input type="text" name="profession">
 
-            <label>Organisme</label>
-            <input type="text" name="organisme" required>
+            <label>Organisme :</label>
+            <input type="text" name="organisme">
 
-            <label>Domicile légal</label>
-            <input type="text" name="domicile" required>
+            <label>Domicile légal :</label>
+            <input type="text" name="domicile_legal">
 
-            <label>Provenance</label>
-            <input type="text" name="provenance" required>
+            <label>Venant de :</label>
+            <input type="text" name="provenance">
 
-            <label>Destination</label>
-            <input type="text" name="destination" required>
+            <label>Allant à :</label>
+            <input type="text" name="destination">
 
-            <label>Moyen de transport</label>
-            <input type="text" name="transport" required>
+            <label>Moyen de transport :</label>
+            <input type="text" name="moyen_transport">
 
-            <label>Téléphone</label>
-            <input type="text" name="telephone" required>
+            <label>Téléphone :</label>
+            <input type="tel" name="telephone">
 
-            <label>Type de pièce</label>
-            <input type="text" name="piece_type" required>
+            <label>Type de pièce d'identité :</label>
+            <select name="type_piece">
+                <option value="Carte">Carte</option>
+                <option value="Passeport">Passeport</option>
+                <option value="Permis">Permis</option>
+                <option value="Autre">Autre</option>
+            </select>
 
-            <label>Numéro de pièce</label>
-            <input type="text" name="piece_numero" required>
+            <label>Numéro de pièce :</label>
+            <input type="text" name="numero_piece">
 
-            <label>Date de délivrance</label>
-            <input type="date" name="delivre_date" required>
+            <label>Date de délivrance :</label>
+            <input type="date" name="date_delivrance">
 
-            <label>Lieu de délivrance</label>
-            <input type="text" name="delivre_lieu" required>
+            <label>Lieu de délivrance :</label>
+            <input type="text" name="lieu_delivrance">
 
-            <label>Date d’arrivée</label>
-            <input type="date" name="arrivee" required>
+            <label>Date d’arrivée :</label>
+            <input type="date" name="date_arrivee">
 
-            <label>Date de départ</label>
-            <input type="date" name="depart" required>
+            <label>Date de départ :</label>
+            <input type="date" name="date_depart">
 
-            <label>Motif du voyage</label>
-            <input type="text" name="motif" required>
+            <label>Motif du voyage :</label>
+            <input type="text" name="motif_voyage">
 
-            <label>Date de renseignement</label>
-            <input type="date" name="renseignement" required>
+            <label>Date de renseignement :</label>
+            <input type="date" name="date_renseignement" required>
 
             <button type="submit">Enregistrer</button>
         </form>
-
-        {% if pdf_url %}
-        <div class="pdf-link">
-            <p>Fiche enregistrée avec succès. Cliquez ici pour télécharger :</p>
-            <a href="{{ pdf_url }}" target="_blank">Télécharger la fiche PDF</a>
-        </div>
-        {% endif %}
     </div>
 </body>
 </html>

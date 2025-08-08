@@ -1,0 +1,15 @@
+<h2>Liste des fiches PDF enregistrées</h2>
+
+{% if fichiers %}
+    <ul>
+    {% for fichier in fichiers %}
+        <li>
+            <a href="{{ url_for('telecharger', nom_fichier=fichier) }}" target="_blank">
+                {{ fichier }}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Aucune fiche enregistrée.</p>
+{% endif %}

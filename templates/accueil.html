@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <title>HOTEL PENSION LE PRESTIGE</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="accueil">
-        <h1 class="titre-principal">HOTEL PENSION <span class="prestige">LE PRESTIGE</span></h1>
-        <p class="nom-directeur">Directeur : HOUGBETODE Codjo Guy</p>
-        <a href="{{ url_for('login') }}" class="btn">Entrer</a>
+<body class="accueil-body">
+
+    <div class="accueil-container">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo Hôtel" class="logo-img">
+        
+        <h1 class="titre-principal">HOTEL PENSION LE PRESTIGE</h1>
+        <h2 class="sous-titre">Directeur : HOUGBETODE Codjo Guy</h2>
+        
+        <a href="{{ url_for('gerant') }}" class="btn-entrer">Entrer dans l'espace gérant</a>
     </div>
+
 </body>
 </html>

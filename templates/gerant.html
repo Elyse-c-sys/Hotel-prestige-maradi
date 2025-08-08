@@ -8,8 +8,10 @@
 <body>
     <div class="gerant">
         <h1>Bienvenue {{ gerant }}</h1>
-        <a href="{{ url_for('fiche') }}" class="btn">➕ Enregistrement d’un client</a>
-        <a href="{{ url_for('clients') }}" class="btn">📄 Voir les fiches PDF</a>
+        <a href="{{ url_for('fiche') }}">➕ Enregistrement d’un client</a>
+        <a href="{{ url_for('clients') }}">📄 Voir les fiches PDF</a>
+        <a href="{{ url_for('stats') }}">📊 Statistiques</a>
+
     </div>
 </body>
 </html>

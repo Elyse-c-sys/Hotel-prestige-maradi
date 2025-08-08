@@ -5,14 +5,20 @@
     <title>Connexion Gérant</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-    <div class="login">
-        <h1>Connexion Gérant</h1>
-        <form method="post">
-            <input type="text" name="nom" placeholder="Nom" required>
-            <input type="text" name="prenom" placeholder="Prénom" required>
-            <input type="password" name="password" placeholder="Mot de passe" required>
-            <button type="submit" class="btn">Se connecter</button>
+<body class="login-body">
+    <div class="login-container">
+        <h1 class="login-title">Connexion Gérant</h1>
+        <form method="POST" action="{{ url_for('gerant') }}" class="login-form">
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" required>
+
+            <label for="prenom">Prénom :</label>
+            <input type="text" id="prenom" name="prenom" required>
+
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="mot_de_passe" name="mot_de_passe" required>
+
+            <button type="submit">Se connecter</button>
         </form>
     </div>
 </body>
