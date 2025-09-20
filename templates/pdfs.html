@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h2>Liste des fiches PDF enregistrées</h2>
 
 {% if fichiers %}
@@ -13,3 +14,21 @@
 {% else %}
     <p>Aucune fiche enregistrée.</p>
 {% endif %}
+=======
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des PDFs</title>
+</head>
+<body>
+    <h1>Liste des PDFs</h1>
+    <ul>
+        {% for fichier in fichiers %}
+            <li><a href="{{ url_for('telecharger', nom_fichier=fichier) }}">{{ fichier }}</a></li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('dashboard') }}">Retour au dashboard</a>
+</body>
+</html>
+>>>>>>> 501dfef (Mise à jour du projet)

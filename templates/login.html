@@ -5,6 +5,7 @@
     <title>Connexion Gérant</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+<<<<<<< HEAD
 <body class="login-body">
     <div class="login-container">
         <h1 class="login-title">Connexion Gérant</h1>
@@ -19,6 +20,21 @@
             <input type="password" id="mot_de_passe" name="mot_de_passe" required>
 
             <button type="submit">Se connecter</button>
+=======
+<body>
+    <div class="login">
+        <h1>Connexion Gérant</h1>
+
+        {% if erreur %}
+        <p class="erreur">{{ erreur }}</p>
+        {% endif %}
+
+        <form method="post" action="{{ url_for('gerant') }}">
+            <input type="text" name="nom" placeholder="Nom" required>
+            <input type="text" name="prenom" placeholder="Prénom" required>
+            <input type="password" name="mot_de_passe" placeholder="Mot de passe" required>
+            <button type="submit" class="btn">Se connecter</button>
+>>>>>>> 501dfef (Mise à jour du projet)
         </form>
     </div>
 </body>
