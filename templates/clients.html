@@ -2,16 +2,30 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Liste des Fiches PDF</title>
+    <title>Liste des clients</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>📄 Fiches clients enregistrées</h1>
-    <ul>
-        {% for fichier in pdf_files %}
-            <li><a href="{{ url_for('static', filename='pdfs/' + fichier) }}" target="_blank">{{ fichier }}</a></li>
-        {% endfor %}
-    </ul>
-    <a href="{{ url_for('dashboard') }}">⬅️ Retour</a>
+    <div class="clients">
+        <h1>Liste des fiches PDF</h1>
+        <input type="text" id="search" placeholder="Rechercher un client..." onkeyup="filtrerClients()">
+        <ul id="liste-clients">
+            {% for client in clients %}
+                <lAi>
+                    {{ client.date }} - {{ client.nom }} {{ client.prenom }} :
+                    <a href="{{ client.pdf_url }}" target="_blank">📄 Voir PDF</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <script>
+        function filtrerClients() {
+            let input = document.getElementById("search").value.toLowerCase();
+            let items = document.querySelectorAll("#liste-clients li");
+            items.forEach(function(item) {
+                item.style.display = item.textContent.toLowerCase().includes(input) ? "block" : "none";
+            });
+        }
+    </script>
 </body>
 </html>

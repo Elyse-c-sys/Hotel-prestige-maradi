@@ -3,24 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Connexion Gérant</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #7ed6df, #48dbfb);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 50px;
+            border-radius: 25px;
+            box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            text-align: center;
+        }
+
+        .login h1 {
+            color: #0c2461;
+            margin-bottom: 40px;
+            font-size: 2em;
+            font-weight: 800;
+        }
+
+        .login input {
+            width: 100%;
+            padding: 15px 10px;
+            margin: 10px 0;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+        }
+
+        .login input:focus {
+            outline: none;
+            border-color: #0c2461;
+            box-shadow: 0 0 5px rgba(12, 36, 97, 0.5);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px 0;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #0c2461;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0px 7px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn:hover {
+            background-color: #1e3799;
+            transform: scale(1.05);
+        }
+
+        .erreur {
+            color: red;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
-<<<<<<< HEAD
-<body class="login-body">
-    <div class="login-container">
-        <h1 class="login-title">Connexion Gérant</h1>
-        <form method="POST" action="{{ url_for('gerant') }}" class="login-form">
-            <label for="nom">Nom :</label>
-            <input type="text" id="nom" name="nom" required>
-
-            <label for="prenom">Prénom :</label>
-            <input type="text" id="prenom" name="prenom" required>
-
-            <label for="password">Mot de passe :</label>
-            <input type="password" id="mot_de_passe" name="mot_de_passe" required>
-
-            <button type="submit">Se connecter</button>
-=======
 <body>
     <div class="login">
         <h1>Connexion Gérant</h1>
@@ -34,7 +85,6 @@
             <input type="text" name="prenom" placeholder="Prénom" required>
             <input type="password" name="mot_de_passe" placeholder="Mot de passe" required>
             <button type="submit" class="btn">Se connecter</button>
->>>>>>> 501dfef (Mise à jour du projet)
         </form>
     </div>
 </body>

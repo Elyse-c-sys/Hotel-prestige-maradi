@@ -2,26 +2,61 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Tableau de Bord</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Bienvenue Gérant</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #7ed6df, #48dbfb);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .gerant {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 80px;
+            border-radius: 25px;
+            box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.3);
+            width: 450px;
+            text-align: center;
+        }
+
+        .gerant h1 {
+            color: #0c2461;
+            margin-bottom: 40px;
+            font-size: 2.2em;
+            font-weight: 800;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 40px;
+            margin: 15px 0;
+            font-size: 1.2em;
+            color: white;
+            background-color: #0c2461;
+            border: none;
+            border-radius: 15px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0px 7px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn:hover {
+            background-color: #1e3799;
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
-<<<<<<< HEAD
-    <div class="dashboard-container">
-        <h1>Bienvenue Elysé MEDJOGBE</h1>
-
-        <div class="dashboard-buttons">
-            <a href="{{ url_for('fiche') }}">➕ Enregistrer un client</a>
-            <a href="{{ url_for('stats') }}">📊 Voir les statistiques</a>
-            <a href="{{ url_for('pdfs') }}">📁 Voir les fiches PDF</a>
-        </div>
-=======
     <div class="gerant">
         <h1>Bienvenue {{ gerant }}</h1>
         <a href="{{ url_for('fiche') }}" class="btn">➕ Enregistrement d’un client</a>
         <a href="{{ url_for('pdfs') }}" class="btn">📄 Voir les fiches PDF</a>
->>>>>>> 501dfef (Mise à jour du projet)
     </div>
 </body>
 </html>
