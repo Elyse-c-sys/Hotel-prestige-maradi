@@ -2,118 +2,208 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Fiche de renseignement client</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche Client - Hôtel Le Prestige</title>
     <style>
+        :root { --gold: #d4af37; --blue-pro: #1e40af; }
+        
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8f5;
-            color: #003300;
-            padding: 20px;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            background-attachment: fixed;
+            color: #f8fafc;
+            padding: 40px 20px;
+            margin: 0;
+            min-height: 100vh;
         }
-        h1, h2 {
-            text-align: center;
-            color: #006633;
+
+        /* 3. BARRE DE PROGRESSION */
+        .progress-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 5px;
+            background: rgba(255,255,255,0.1); z-index: 10000;
         }
+        .progress-bar {
+            height: 100%; width: 0%; background: var(--gold);
+            box-shadow: 0 0 15px var(--gold); transition: width 0.4s ease;
+        }
+
+        /* 3. NOTIFICATION TOAST */
+        #toast {
+            visibility: hidden; min-width: 300px; background-color: var(--gold);
+            color: #000; text-align: center; border-radius: 12px;
+            padding: 16px; position: fixed; z-index: 10001;
+            right: 30px; bottom: 30px; font-weight: 800;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 4.5s; }
+
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+        .container { max-width: 850px; margin: auto; }
+        h1 { text-align: center; font-size: 1.8rem; color: #ffffff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
+        h2 { text-align: center; font-size: 0.9rem; color: #94a3b8; margin-bottom: 40px; letter-spacing: 4px; }
+
         form {
-            max-width: 700px;
-            margin: auto;
-            background: #e6f2e6;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px #aaa;
+            background: #ffffff; padding: 40px; border-radius: 25px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; color: #0f172a;
+            box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
-        label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
+
+        .section-title { grid-column: span 2; padding: 15px 0 5px 0; border-bottom: 2px solid #f1f5f9; margin-top: 10px; color: var(--blue-pro); font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+        .full-width { grid-column: span 2; }
+
+        /* LUMINOSITÉ AUGMENTÉE */
+        label { display: block; margin-bottom: 4px; font-weight: 700; font-size: 0.75rem; color: #334155; text-transform: uppercase; }
+        input { 
+            width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #cbd5e1; 
+            background: #ffffff; color: #000; font-size: 1rem; font-weight: 500; box-sizing: border-box; transition: all 0.2s;
         }
-        input {
-            width: 100%;
-            padding: 6px;
-            margin-top: 4px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+        input:focus { outline: none; border-color: var(--gold); background: #f0f9ff; box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2); }
+
+        .actions-container { grid-column: span 2; display: flex; gap: 15px; margin-top: 25px; }
+        .btn-primary {
+            flex: 2; padding: 18px; border-radius: 15px; border: none;
+            background: linear-gradient(135deg, var(--gold) 0%, #a38627 100%);
+            color: #000; font-weight: 800; text-transform: uppercase; cursor: pointer;
+            transition: all 0.3s ease; box-shadow: 0 10px 15px rgba(212, 175, 55, 0.3);
         }
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #006633;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #004d26;
+        .btn-back-glow {
+            flex: 1; padding: 18px; border-radius: 15px; border: none;
+            background: #0f172a; color: var(--gold); text-decoration: none;
+            font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; border: 1px solid var(--gold);
         }
     </style>
 </head>
 <body>
-    <h1>HÔTEL LE PRESTIGE MARADI</h1>
-    <h2>FICHE DE RENSEIGNEMENT CLIENT</h2>
 
-    <form method="POST" action="{{ url_for('fiche') }}">
-        <label>Nom</label>
-        <input type="text" name="nom" required>
+    <div class="progress-container"><div class="progress-bar" id="myBar"></div></div>
+    <div id="toast">✅ Fiche de M. <span id="toast-name"></span> enregistrée avec succès !</div>
 
-        <label>Prénom</label>
-        <input type="text" name="prenom" required>
+    <div class="container">
+        <h1>HÔTEL LE PRESTIGE MARADI</h1>
+        <h2>FICHE DE RENSEIGNEMENT CLIENT</h2>
 
-        <label>Date de naissance</label>
-        <input type="date" name="date_naissance" required>
+        <form id="ficheForm" method="POST" action="{{ url_for('fiche') }}">
+            
+            <div class="section-title">👤 Identité du Voyageur</div>
+            <div>
+                <label>Nom</label>
+                <input type="text" name="nom" id="nomInput" required oninput="this.value = this.value.toUpperCase()">
+            </div>
+            <div>
+                <label>Prénom</label>
+                <input type="text" name="prenom" required>
+            </div>
+            <div>
+                <label>Date de naissance</label>
+                <input type="date" name="date_naissance">
+            </div>
+            <div>
+                <label>Lieu de naissance</label>
+                <input type="text" name="lieu_naissance">
+            </div>
+            <div>
+                <label>Nationalité</label>
+                <input type="text" name="nationalite" required>
+            </div>
+            <div>
+                <label>Profession</label>
+                <input type="text" name="profession">
+            </div>
+            <div class="full-width">
+                <label>Organisme / Entreprise</label>
+                <input type="text" name="organisme">
+            </div>
+            <div class="full-width">
+                <label>Domicile légal</label>
+                <input type="text" name="domicile">
+            </div>
 
-        <label>Lieu de naissance</label>
-        <input type="text" name="lieu_naissance" required>
+            <div class="section-title">🌍 Détails du Voyage</div>
+            <div>
+                <label>Provenance</label>
+                <input type="text" name="provenance">
+            </div>
+            <div>
+                <label>Destination</label>
+                <input type="text" name="destination">
+            </div>
+            <div>
+                <label>Moyen de transport</label>
+                <input type="text" name="transport">
+            </div>
+            <div>
+                <label>Téléphone</label>
+                <input type="text" name="telephone">
+            </div>
+            <div class="full-width">
+                <label>Motif du voyage</label>
+                <input type="text" name="motif">
+            </div>
 
-        <label>Nationalité</label>
-        <input type="text" name="nationalite" required>
+            <div class="section-title">🪪 Pièce d'Identité</div>
+            <div>
+                <label>Type de pièce</label>
+                <input type="text" name="type_piece">
+            </div>
+            <div>
+                <label>Numéro de pièce</label>
+                <input type="text" name="numero_piece">
+            </div>
+            <div>
+                <label>Date de délivrance</label>
+                <input type="date" name="date_delivrance">
+            </div>
+            <div>
+                <label>Lieu de délivrance</label>
+                <input type="text" name="lieu_delivrance">
+            </div>
 
-        <label>Profession</label>
-        <input type="text" name="profession">
+            <div class="section-title">🏨 Séjour</div>
+            <div>
+                <label>Date d’arrivée</label>
+                <input type="date" name="date_arrivee">
+            </div>
+            <div>
+                <label>Date de départ prévue</label>
+                <input type="date" name="date_depart">
+            </div>
+            <div class="full-width">
+                <label>Date de renseignement (Automatique)</label>
+                <input type="date" name="date_renseignement" id="dateAuto" readonly>
+            </div>
 
-        <label>Organisme</label>
-        <input type="text" name="organisme">
+            <div class="actions-container">
+                <a href="{{ url_for('dashboard') }}" class="btn-back-glow">⬅ Retour</a>
+                <button type="submit" class="btn-primary">✅ Valider l'Enregistrement</button>
+            </div>
+        </form>
+    </div>
 
-        <label>Domicile légal</label>
-        <input type="text" name="domicile">
+    <script>
+        // 1. GESTION DATE AUTOMATIQUE
+        document.getElementById('dateAuto').valueAsDate = new Date();
 
-        <label>Provenance</label>
-        <input type="text" name="provenance">
+        // 3. GESTION BARRE DE PROGRESSION
+        const form = document.getElementById('ficheForm');
+        const progressBar = document.getElementById('myBar');
+        const requiredInputs = form.querySelectorAll('input[required]');
 
-        <label>Destination</label>
-        <input type="text" name="destination">
+        form.addEventListener('input', () => {
+            let filled = 0;
+            requiredInputs.forEach(input => { if (input.value.trim() !== "") filled++; });
+            let progress = (filled / requiredInputs.length) * 100;
+            progressBar.style.width = progress + "%";
+        });
 
-        <label>Moyen de transport</label>
-        <input type="text" name="transport">
-
-        <label>Téléphone</label>
-        <input type="text" name="telephone">
-
-        <label>Type de pièce</label>
-        <input type="text" name="type_piece">
-
-        <label>Numéro de pièce</label>
-        <input type="text" name="numero_piece">
-
-        <label>Date de délivrance</label>
-        <input type="date" name="date_delivrance">
-
-        <label>Lieu de délivrance</label>
-        <input type="text" name="lieu_delivrance">
-
-        <label>Date d’arrivée</label>
-        <input type="date" name="date_arrivee">
-
-        <label>Date de départ</label>
-        <input type="date" name="date_depart">
-
-        <label>Motif du voyage</label>
-        <input type="text" name="motif">
-
-        <label>Date de renseignement</label>
-        <input type="date" name="date_renseignement">
-
-        <button type="submit">Enregistrer</button>
-    </form>
+        // Fonction pour afficher le Toast (à appeler après succès)
+        function showToast(name) {
+            document.getElementById('toast-name').innerText = name;
+            const t = document.getElementById("toast");
+            t.className = "show";
+            setTimeout(() => { t.className = t.className.replace("show", ""); }, 5000);
+        }
+    </script>
 </body>
 </html>

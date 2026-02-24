@@ -2,92 +2,65 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Liste des PDFs</title>
+    <title>Archives PDF - Hôtel Le Prestige</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f6f8;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .pdfs {
-            background-color: #ffffff;
-            padding: 40px 60px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            width: 500px;
-            text-align: center;
-        }
-
-        .pdfs h1 {
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-size: 2em;
-            font-weight: 700;
-        }
-
-        .pdfs ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .pdfs li {
-            background-color: #ecf0f1;
-            margin-bottom: 12px;
-            padding: 12px 15px;
-            border-radius: 10px;
-            font-size: 1em;
-            transition: background-color 0.3s ease;
-        }
-
-        .pdfs li:hover {
-            background-color: #d0d7de;
-        }
-
-        .pdfs li a {
-            color: #2980b9;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .pdfs li a:hover {
-            color: #1c5980;
-            text-decoration: underline;
-        }
-
-        .back {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 10px 25px;
-            background-color: #0c2461;
-            color: white;
-            text-decoration: none;
-            border-radius: 12px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .back:hover {
-            background-color: #1e3799;
-            transform: scale(1.05);
-        }
+        body { font-family: 'Segoe UI', sans-serif; background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%); background-attachment: fixed; color: #f8fafc; margin: 0; padding: 40px 20px; min-height: 100vh; }
+        .container { max-width: 800px; margin: auto; }
+        .header-section { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; margin-bottom: 30px; }
+        #search { width: 100%; padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; margin-bottom: 25px; box-sizing: border-box; }
+        ul { list-style: none; padding: 0; }
+        li { background: #ffffff; color: #1e293b; margin-bottom: 15px; padding: 20px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        .client-name { font-size: 1.1rem; font-weight: 700; }
+        .btn-group { display: flex; gap: 10px; }
+        .view-link { text-decoration: none; background: #0f172a; color: #38bdf8; padding: 10px 15px; border-radius: 10px; font-weight: bold; }
+        .btn-delete { background: #fee2e2; color: #ef4444; border: 1px solid #fecaca; padding: 10px; border-radius: 10px; cursor: pointer; border: none; }
+        .btn-back { text-decoration: none; color: #38bdf8; }
     </style>
 </head>
 <body>
-    <div class="pdfs">
-        <h1>Liste des PDFs</h1>
-        <ul>
-            {% for fichier in fichiers %}
-                <li><a href="{{ url_for('telecharger', nom_fichier=fichier) }}">{{ fichier }}</a></li>
+    <div class="container">
+        <div class="header-section">
+            <h1>Archives PDF</h1>
+            <a href="{{ url_for('dashboard') }}" class="btn-back">⬅ Dashboard</a>
+        </div>
+        <input type="text" id="search" placeholder="Rechercher par nom..." onkeyup="filtrer()">
+        
+        <ul id="liste-clients">
+            {% for client in clients %}
+            <li>
+                <div>
+                    <span style="font-size:0.8rem; color:#64748b;">📅 {{ client.date_creation.strftime('%d/%m/%Y') }}</span><br>
+                    <span class="client-name">{{ client.nom }} {{ client.prenom }}</span>
+                </div>
+                <div class="btn-group">
+                    <a href="{{ client.pdf_url }}" target="_blank" class="view-link">📄 Voir</a>
+                    <button class="btn-delete" onclick="demanderCode('{{ client.id }}')">🗑️</button>
+                </div>
+            </li>
             {% endfor %}
         </ul>
-        <a href="{{ url_for('dashboard') }}" class="back">Retour au dashboard</a>
     </div>
+
+    <script>
+        function demanderCode(clientId) {
+            if (confirm("Voulez-vous supprimer ce dossier ?")) {
+                let mdp = prompt("Code de sécurité :");
+                // Le code reste Pension@2025 comme demandé
+                if (mdp === "Pension@2025") {
+                    // On redirige vers la route /supprimer_pdf/ avec l'ID numérique
+                    window.location.href = "/supprimer_pdf/" + clientId;
+                } else if (mdp !== null) { 
+                    alert("Code incorrect !"); 
+                }
+            }
+        }
+
+        function filtrer() {
+            let val = document.getElementById("search").value.toLowerCase();
+            document.querySelectorAll("#liste-clients li").forEach(li => {
+                li.style.display = li.textContent.toLowerCase().includes(val) ? "flex" : "none";
+            });
+        }
+    </script>
 </body>
 </html>
